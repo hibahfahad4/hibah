@@ -1,0 +1,93 @@
+#!/bin/bash
+DATA_FILE="Data.txt"
+
+# Check if file exists and is readable
+if [ ! -f "$DATA_FILE" ]; then
+  echo "The file does not exist."
+  exit 1
+elif [ ! -r "$DATA_FILE" ]; then
+  echo "The file is not readable."
+  exit 1
+fi
+
+echo "Welcome to the Travel Recommendation Program :)"
+
+read -p "Enter your travel goal (e.g., Education, Entertainment): " goal
+goal_lower=$(echo "$goal" | tr '[:upper:]' '[:lower:]')
+
+read -p "Enter number of adults going on the trip: " adults
+if ! [[ "$adults" =~ ^[0-9]+$ ]]; then
+  echo "Please enter a valid number."
+  exit 1
+fi
+
+echo "Choose budget level:"
+echo "1) Low"
+echo "2) Medium"
+echo "3) High"
+read -p "Enter option (1-3): " budget_choice
+case $budget_choice in
+  1) budget="Low" ;;
+  2) budget="Medium" ;;
+  3) budget="High" ;;
+  *) echo "Invalid budget choice."; exit 1 ;;
+esac
+
+echo ""
+echo "Fetching suggestions for you..."
+echo "--------------------------------"
+
+case $goal_lower in
+  "education")
+    read -p "Type of education (School/Higher): " edu_type
+    edu_type_lower=$(echo "$edu_type" | tr '[:upper:]' '[:lower:]')
+
+    if [[ "$edu_type_lower" == "school" ]]; then
+      section="## Type: School Education"
+    elif [[ "$edu_type_lower" == "higher" ]]; then
+      section="## Type: Higher Education"
+    else
+      echo "Invalid type."
+      exit 1
+    fi
+
+    print=0
+    while read -r line; do
+      echo "$line" | grep -q "^$section$" && print=1 && continue
+      echo "$line" | grep -q "^##" && print=0
+      if [ $print -eq 1 ] && [ -n "$line" ]; then
+        dest_budget=$(echo "$line" | sed 's/.*- *//')
+        if [ "$dest_budget" = "$budget" ]; then
+          dest_name=$(echo "$line" | sed 's/-.*//')
+          echo "- $dest_name"
+        fi
+      fi
+    done < "$DATA_FILE"
+    ;;
+
+  "entertainment")
+    if [ "$adults" -gt 9 ]; then
+      group="Adults > 9"
+    else
+      group="Adults ≤ 9"
+    fi
+
+    echo "Searching for $budget budget destinations for group: $group"
+
+    print=0
+    while read -r line; do
+      echo "$line" | grep -q "## $group" && print=1 && continue
+      echo "$line" | grep -q "##" && print=0
+      if [ $print -eq 1 ] && [ -n "$line" ]; then
+        dest_budget=$(echo "$line" | sed 's/.*- *//')
+        if [ "$dest_budget" = "$budget" ]; then
+          dest_name=$(echo "$line" | sed 's/-.*//')
+          echo "- $dest_name"
+        fi
+      fi
+    done < "$DATA_FILE"
+    ;;
+esac
+
+echo "--------------------------------"
+echo "Thank you for using our program!"
