@@ -1,0 +1,40 @@
+# Travel Goal: Education
+
+## Type: School Education
+Finland - High
+Singapore - High
+Switzerland - High
+Australia - Medium
+Denmark - Medium
+India - Low
+
+## Type: Higher Education
+National University of Singapore (Singapore) - High
+University of Tokyo (Japan) - Medium
+Stanford University (USA) - High
+University of Oxford (UK) - High
+ETH Zurich (Switzerland) - High
+University of Toronto (Canada) - Medium
+Indian Institute of Technology (IIT) - India - Low
+
+# Travel Goal: Entertainment 
+
+## Adults > 9
+Disneyland (USA) - High
+Yas Island (UAE) - High
+Tokyo Disney Resort (Japan) - High
+Universal Studios Orlando (USA) - High
+Las Vegas Strip (USA) - High
+Oktoberfest (Germany) - Medium
+Cruise on Mediterranean Sea - High
+Rio Carnival (Brazil) - Medium
+
+## Adults ≤ 9
+Paris (France) - High
+Istanbul (Turkey) - Medium
+Kuala Lumpur (Malaysia) - Low
+Seoul (South Korea) - Medium
+Barcelona (Spain) - Medium
+Dubai (UAE) - High
+Bangkok (Thailand) - Low
+Cape Town (South Africa) - Low
