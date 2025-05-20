@@ -1,3 +1,4 @@
+fatal: destination path 'project' already exists and is not an empty directory.
 #!/bin/bash
 # This line specifies that the program will be executed by Bash.
 
